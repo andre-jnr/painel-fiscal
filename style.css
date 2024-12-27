@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+* {
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    outline: 0px;
+    list-style-type: none;
+    color: inherit;
+    text-decoration: none;
+}
+
+body {
+    background-color: #f1f6ce;
+}
+
+header {
+    background-color: #0d0f36;
+    padding: 15px;
+    text-align: center;
+    margin: 0px;
+    color: #f1f6ce;
+}
+
+#titulo {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1em;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes {
+    flex: 1 1 30%;
+    max-width: 30%;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+.btn {
+    display: block;
+    background-color: #0d0f36;
+    font-size: 1em;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    color: #f1f6ce;
+    font-weight: bolder;
+    border-radius: 8px;
+    max-width: 250px;
+    word-wrap: break-word; /* Para garantir que o texto não ultrapasse o botão */
+    text-decoration: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #294380;
+}
+
+@media (max-width: 1024px) {
+    .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes {
+        flex: 1 1 45%; /* Reduz a largura para 45% em telas menores */
+        max-width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes {
+        flex: 1 1 100%; /* Em telas menores, cada bloco ocupa 100% da largura */
+        max-width: 100%;
+    }
+
+    .btn {
+        max-width: 100%; /* Botões ocupam 100% da largura da tela */
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em; /* Ajuste do tamanho do título para telas muito pequenas */
+    }
+
+    h2 {
+        font-size: 1.2em; /* Ajuste do tamanho do subtítulo */
+    }
+
+    .btn {
+        padding: 15px; /* Botões mais largos e fáceis de clicar em telas pequenas */
+    }
+}
