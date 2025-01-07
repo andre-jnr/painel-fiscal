@@ -42,7 +42,6 @@ main {
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
 }
 
@@ -89,6 +88,41 @@ h2 {
 
 .btn:hover {
     background-color: #294380;
+}
+
+.copiar-e-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.txt-area, .btn-copiar {
+    padding: 10px;
+    font-size: 16px;
+    height: 90px;
+}
+
+.txt-area {
+    width: 100%;          
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding: 10px;   
+    box-sizing: border-box
+}
+
+
+.btn-copiar {
+    cursor: pointer;
+    margin-left: 1px;
+}
+
+.message {
+    margin-top: 10px;
+    color: green;
+    font-size: 14px;
+    display: none;
 }
 
 @media (max-width: 1024px) {
