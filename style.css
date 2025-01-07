@@ -41,6 +41,9 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes {
