@@ -29,3 +29,19 @@ function copiarTextoNFDevolucao() {
         mensagem.style.display = "none";
     }, 2000);
 }
+
+function copiarTextoNFDevolucao() {
+    var txtReanalise5 = document.getElementById("txt-reanalise5");
+
+    txtReanalise5.select();
+    txtReanalise5.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+
+    var mensagem = document.getElementById("mensagem-reanalise5");
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 2000);
+}
