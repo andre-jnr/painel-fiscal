@@ -219,16 +219,26 @@
             <h1>Textos para copiar e colar</h1>
 
             <div>
-                <h5>Texto para dados adicionais para as notas de entrada de notas de produtor rural com retenção de 1,5%</h5>
+                <h4>Texto para dados adicionais para as notas de entrada de notas de produtor rural com retenção de 1,5%</h4>
 
+                <div id="mensagem-sarkis" class="message">Texto copiado para a área de transferência!</div>
                 <div class="copiar-e-btn">
-                    <textarea class="txt-area" readonly> REF NF PRODUTOR RURAL Nº [colocar o número da nota aqui] DE FELISBERTO SARKIS. PGTO COM 1,5% DE RETENÇÃO. VALOR PARA PGTO R$ [colocar o valor com a retenção aqui].</textarea>
+                    <textarea id="txt-sarkis" class="txt-area" readonly> REF NF PRODUTOR RURAL Nº [colocar o número da nota aqui] DE FELISBERTO SARKIS. PGTO COM 1,5% DE RETENÇÃO. VALOR PARA PGTO R$ [colocar o valor com a retenção aqui].</textarea>
     
-                    <button onclick="copiarTexto()" class="btn-copiar">Copiar</button>
+                    <button onclick="copiarTextoSarkis()" id="btn-copiar-sarkis" class="btn-copiar">Copiar</button>
                 </div>
             </div>
 
-        <div id="mensagem" class="message">Texto copiado para a área de transferência!</div>
+            <div>
+                <h4>Texto para nota fiscal de devolução parcial</h4>
+
+                <div id="mensagem-nf-dev" class="message">Texto copiado para a área de transferência!</div>
+                <div class="copiar-e-btn">
+                    <textarea id="txt-dev" class="txt-area" readonly> DEVOLUÇÃO PARCIAL REF A NF [número da nota de origem aqui], ITENS [código dos itens devolvidos aqui] DEVIDO A DIVERGENCIA ENTRE O PRODUTO RECEBIDO E O SOLICITADO.</textarea>
+    
+                    <button onclick="copiarTextoNFDevolucao()" id="btn-copiar-dev" class="btn-copiar">Copiar</button>
+                </div>
+            </div>
         </div>
 
     </main>
