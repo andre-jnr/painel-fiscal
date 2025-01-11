@@ -90,6 +90,10 @@ h2 {
     background-color: #294380;
 }
 
+#copiar-colar {
+    margin-left: 25px;
+}
+
 .copiar-e-btn {
     display: flex;
     justify-content: center;
