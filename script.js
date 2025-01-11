@@ -30,7 +30,7 @@ function copiarTextoNFDevolucao() {
     }, 2000);
 }
 
-function copiarTextoNFDevolucao() {
+function copiarTextoReanalise5() {
     var txtReanalise5 = document.getElementById("txt-reanalise5");
 
     txtReanalise5.select();
@@ -46,7 +46,7 @@ function copiarTextoNFDevolucao() {
     }, 2000);
 }
 
-function copiarTextoNFDevolucao() {
+function copiarTextoReanalise5Resumido() {
     var txtReanalise5 = document.getElementById("txt-reanalise5-resumido");
 
     txtReanalise5.select();
