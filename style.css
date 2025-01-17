@@ -45,7 +45,7 @@ main {
     min-height: 100vh;
 }
 
-.links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes, .btn-moura-web {
+.links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .portais-gestao-fiscal, .links-moura-web, .links-fiscais {
     flex: 1 1 30%;
     max-width: 30%;
     box-sizing: border-box;
@@ -130,14 +130,14 @@ h2 {
 }
 
 @media (max-width: 1024px) {
-    .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes {
+    .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .portais-gestao-fiscal {
         flex: 1 1 45%; /* Reduz a largura para 45% em telas menores */
         max-width: 45%;
     }
 }
 
 @media (max-width: 768px) {
-    .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .links-importantes {
+    .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, .docs-frigo, .portais-gestao-fiscal {
         flex: 1 1 100%; /* Em telas menores, cada bloco ocupa 100% da largura */
         max-width: 100%;
     }
