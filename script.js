@@ -61,3 +61,67 @@ function copiarTextoReanalise5Resumido() {
         mensagem.style.display = "none";
     }, 2000);
 }
+
+function copiarSelect() {
+    var txtSelect = document.getElementById("txt-select");
+
+    txtSelect.select();
+    txtSelect.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+
+    var mensagem = document.getElementById("mensagem-select");
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 2000);
+}
+
+function copiarInsert() {
+    var txtInsert = document.getElementById("txt-insert");
+
+    txtInsert.select();
+    txtInsert.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+
+    var mensagem = document.getElementById("mensagem-insert");
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 2000);
+}
+
+function copiarUpdate() {
+    var txtUpdate = document.getElementById("txt-update");
+
+    txtUpdate.select();
+    txtUpdate.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+
+    var mensagem = document.getElementById("mensagem-update");
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 2000);
+}
+
+function copiarDelete() {
+    var txtDelete = document.getElementById("txt-delete");
+
+    txtDelete.select();
+    txtDelete.setSelectionRange(0, 99999);
+
+    document.execCommand("copy");
+
+    var mensagem = document.getElementById("mensagem-delete");
+    mensagem.style.display = "block";
+
+    setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 2000);
+}

@@ -341,6 +341,66 @@
             
                             <button onclick="copiarTextoReanalise5Resumido()" id="btn-copiar-reanalise-resumido" class="btn-copiar">Copiar</button>
                         </div>
+                    </div>
+
+                    <h2>Comandos para acessar banco de dados</h2>
+
+                    <div>
+                        <h4>Para selecionar os dados de um item dentro de uma tabela</h4>
+        
+                        <div id="mensagem-select" class="message">Texto copiado para a área de transferência!</div>
+                        <div class="copiar-e-btn">
+
+                            <textarea id="txt-select" class="txt-area" readonly>select * from [nome_tabela]
+where [campo] = [valor_índice];</textarea>
+
+                            <button onclick="copiarSelect()" id="btn-select" class="btn-copiar">Copiar</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Inserir alguma dado dentro de uma tabela</h4>
+        
+                        <div id="mensagem-insert" class="message">Texto copiado para a área de transferência!</div>
+                        <div class="copiar-e-btn">
+                            
+                            <textarea id="txt-insert" class="txt-area" readonly>insert into [nome_tabela]
+    ([campo1], [campo2], [campo3], [...])
+values
+    ([valor1], [valor2], [valor3], [...]);</textarea>
+
+                            <button onclick="copiarInsert()" id="btn-insert" class="btn-copiar">Copiar</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Para atualizar algum campo</h4>
+        
+                        <div id="mensagem-update" class="message">Texto copiado para a área de transferência!</div>
+                        <div class="copiar-e-btn">
+                            
+                            <textarea id="txt-update" class="txt-area" readonly>update [nome_tabela] set [campo] = [novo_valor]
+where [campo_indice] = [valor_indice];
+                            </textarea>
+
+                            <button onclick="copiarUpdate()" id="btn-copiar-update" class="btn-copiar">Copiar</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>Para deletar um registro na tabela</h4>
+        
+                        <div id="mensagem-delete" class="message">Texto copiado para a área de transferência!</div>
+                        <div class="copiar-e-btn">
+                            
+                            <textarea id="txt-delete" class="txt-area" readonly>delete from [nome_tabela]
+where [campo_indice] = [valor_indice];
+                            </textarea>
+
+                            <button onclick="copiarDelete()" id="btn-copiar-delete" class="btn-copiar">Copiar</button>
+                        </div>
+                    </div>
+
             </div>
         </div>
 
