@@ -45,18 +45,6 @@ header p {
     opacity: 0.9;
 }
 
-/* Links */
-a {
-  color: white; /* azul claro */
-  text-decoration: none;
-  font-weight: 500;
-}
-
-a:hover {
-  color: #0ea5e9; /* azul mais forte no hover */
-  text-decoration: underline;
-}
-
 /* Layout principal */
 main {
     display: flex;
@@ -92,15 +80,16 @@ h1, h2 {
     color: #0d0f36;
 }
 
-ul {
+/* Container dos botões */
+.btns-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
     align-items: center;
 }
 
-/* Botões */
-.btn {
+/* Botões de link */
+a.btn {
     display: block;
     background: linear-gradient(135deg, #0d0f36, #294380);
     font-size: 1em;
@@ -113,9 +102,10 @@ ul {
     width: 100%;
     cursor: pointer;
     transition: all 0.25s ease;
+    text-decoration: none;
 }
 
-.btn:hover {
+a.btn:hover {
     background: linear-gradient(135deg, #294380, #4a6ac4);
     transform: scale(1.05);
 }
