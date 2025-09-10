@@ -165,7 +165,7 @@ a.btn:hover {
 /* Responsividade */
 @media (max-width: 1024px) {
     .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, 
-    .docs-frigo, .portais-gestao-fiscal {
+    .docs-frigo, .portais-gestao-fiscal, .links-fiscais, .links-moura-web {
         flex: 1 1 45%;
         max-width: 45%;
     }
@@ -173,7 +173,7 @@ a.btn:hover {
 
 @media (max-width: 768px) {
     .links-faturamento, .certidoes, .links-frigoam, .pdf-nf, 
-    .docs-frigo, .portais-gestao-fiscal {
+    .docs-frigo, .portais-gestao-fiscal, .links-fiscais, .links-moura-web {
         flex: 1 1 100%;
         max-width: 100%;
     }
