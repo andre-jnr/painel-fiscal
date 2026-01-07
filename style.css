@@ -45,6 +45,36 @@ header p {
     padding-bottom: 10px;
 }
 
+/* Barra de ferramentas fiscais */
+.ferramentas-fiscais {
+    width: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+
+/* Links da barra */
+.tool-link {
+    background: linear-gradient(135deg, #0d0f36, #294380);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.tool-link:hover {
+    background: linear-gradient(135deg, #294380, #4a6ac4);
+    transform: translateY(-2px) scale(1.05);
+}
+
+
 /* Layout principal */
 main {
     display: flex;
@@ -176,5 +206,16 @@ a.btn:hover {
     .docs-frigo, .portais-gestao-fiscal, .links-fiscais, .links-moura-web {
         flex: 1 1 100%;
         max-width: 100%;
+    }
+
+    .ferramentas-fiscais {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .tool-link {
+        width: 100%;
+        text-align: center;
+        max-width: 320px;
     }
 }
