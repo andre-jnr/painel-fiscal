@@ -1,1094 +1,673 @@
-<link rel="shortcut icon" href="contabilidade.ico" type="image/x-icon" />
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Central de Portais Fiscais</title>
+    <link rel="shortcut icon" href="contabilidade.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="portal-root">
+      <header class="portal-header">
+        <div class="header-top">
+          <div class="header-icon">🏛️</div>
+          <div>
+            <div class="header-title">
+              Central de
+              <span class="header-gold">Portais Fiscais</span>
+            </div>
+            <div class="header-sub">Fiscal · Faturamento · Controladoria</div>
+          </div>
+        </div>
+      </header>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  .portal-root {
-    font-family: 'Inter', sans-serif;
-    background: #f4f7fa;
-    color: #2d3748;
-  }
+      <nav class="nav-tools">
+        <button
+          class="hamburger-btn"
+          onclick="toggleMenu()"
+          id="hbtn"
+          aria-label="Menu de ferramentas"
+        >
+          <span id="hicon">☰</span>
+          <span class="hamburger-label">Ferramentas</span>
+        </button>
 
-  .portal-header {
-    background: linear-gradient(135deg, #0b1f3a 0%, #12355b 60%, #1a4a7a 100%);
-    padding: 22px 32px 18px;
-    position: relative;
-    overflow: hidden;
-  }
-  .portal-header::before {
-    content: '';
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background: rgba(212, 175, 55, 0.06);
-  }
-  .header-top {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 6px;
-  }
-  .header-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    flex-shrink: 0;
-  }
-  .header-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 0.3px;
-  }
-  .header-gold {
-    color: #d4af37;
-  }
-  .header-sub {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-weight: 500;
-    padding-left: 62px;
-  }
-
-  .nav-tools {
-    background: #fff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 14px 24px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(11, 31, 58, 0.07);
-  }
-  .hamburger-btn {
-    display: none;
-    background: #0b1f3a;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 8px;
-    padding: 10px 16px;
-    cursor: pointer;
-    color: #d4af37;
-    font-size: 22px;
-    line-height: 1;
-    font-weight: 700;
-    align-items: center;
-    gap: 8px;
-  }
-  .hamburger-label {
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
-  }
-  .tool-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: #0b1f3a;
-    color: #d4af37;
-    padding: 11px 18px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    transition: all 0.2s;
-    letter-spacing: 0.2px;
-  }
-  .tool-btn:hover {
-    background: #12355b;
-    border-color: rgba(212, 175, 55, 0.5);
-    transform: translateY(-1px);
-  }
-
-  .mobile-menu {
-    display: none;
-  }
-  .mobile-menu.open {
-    display: flex;
-  }
-
-  .main-content {
-    padding: 24px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
-
-  .card {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(18, 53, 91, 0.1);
-    border-radius: 14px;
-    padding: 20px 18px 18px;
-    box-shadow: 0 2px 12px rgba(11, 31, 58, 0.06);
-    transition:
-      transform 0.2s,
-      box-shadow 0.2s;
-  }
-  .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(11, 31, 58, 0.12);
-  }
-
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  }
-  .card-icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-    background: rgba(11, 31, 58, 0.08);
-  }
-  .card-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: #12355b;
-  }
-  .card-title span {
-    display: block;
-    font-size: 11px;
-    font-weight: 500;
-    color: #d4af37;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-  }
-
-  .link-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .link-item {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 11px 13px;
-    background: #f4f7fa;
-    border: 1px solid rgba(18, 53, 91, 0.08);
-    border-radius: 9px;
-    text-decoration: none;
-    color: #1a2f4a;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.18s;
-  }
-  .link-item:hover {
-    background: #0b1f3a;
-    color: #fff;
-    border-color: #0b1f3a;
-    transform: translateX(2px);
-  }
-  .link-emoji {
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .link-arrow {
-    margin-left: auto;
-    font-size: 12px;
-    opacity: 0.4;
-    flex-shrink: 0;
-  }
-  .link-item:hover .link-arrow {
-    opacity: 0.8;
-  }
-
-  .full-section {
-    grid-column: 1 / -1;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(18, 53, 91, 0.1);
-    border-radius: 14px;
-    padding: 22px;
-    box-shadow: 0 2px 12px rgba(11, 31, 58, 0.06);
-  }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  }
-  .section-header h2 {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: #12355b;
-  }
-
-  .texts-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-  }
-  .text-block {
-  }
-  .text-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #12355b;
-    margin-bottom: 8px;
-  }
-
-  .copy-row {
-    display: flex;
-    gap: 9px;
-    align-items: flex-start;
-  }
-  textarea.txt-area {
-    flex: 1;
-    min-height: 90px;
-    padding: 11px 13px;
-    border: 1px solid rgba(18, 53, 91, 0.12);
-    border-radius: 9px;
-    resize: none;
-    background: #f4f7fa;
-    font-size: 13px;
-    color: #2d3748;
-    font-family: 'Inter', sans-serif;
-    line-height: 1.55;
-  }
-  textarea.txt-area:focus {
-    outline: 2px solid rgba(18, 53, 91, 0.2);
-  }
-  .btn-copiar {
-    background: #0b1f3a;
-    color: #d4af37;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 8px;
-    padding: 9px 15px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.2s;
-    white-space: nowrap;
-    font-family: 'Inter', sans-serif;
-  }
-  .btn-copiar:hover {
-    background: #12355b;
-    transform: scale(1.03);
-  }
-  .btn-copiar.copied {
-    background: #0e6e43;
-    border-color: rgba(14, 110, 67, 0.4);
-    color: #fff;
-  }
-  .copy-feedback {
-    font-size: 12px;
-    color: #0e6e43;
-    font-weight: 600;
-    margin-top: 5px;
-    opacity: 0;
-    transition: opacity 0.2s;
-    min-height: 16px;
-  }
-  .copy-feedback.show {
-    opacity: 1;
-  }
-
-  .sql-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-  textarea.sql-area {
-    width: 100%;
-    min-height: 90px;
-    padding: 11px 13px;
-    border: 1px solid rgba(18, 53, 91, 0.12);
-    border-radius: 9px;
-    resize: none;
-    background: #1a2535;
-    font-size: 13px;
-    color: #7dd3fc;
-    font-family: 'Courier New', monospace;
-    line-height: 1.6;
-    margin-bottom: 7px;
-  }
-
-  @media (max-width: 1024px) {
-    .main-content {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .sql-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 640px) {
-    .portal-header {
-      padding: 16px;
-    }
-    .header-title {
-      font-size: 20px;
-    }
-    .header-sub {
-      font-size: 12px;
-      padding-left: 0;
-      margin-top: 6px;
-    }
-    .header-top {
-      flex-wrap: wrap;
-    }
-
-    .nav-tools {
-      padding: 10px 14px;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-    }
-    .hamburger-btn {
-      display: flex;
-    }
-    .nav-desktop {
-      display: none;
-    }
-    .mobile-menu {
-      flex-direction: column;
-      gap: 8px;
-      padding: 12px 0 4px;
-    }
-    .tool-btn {
-      width: 100%;
-      justify-content: center;
-      font-size: 15px;
-      padding: 13px 18px;
-    }
-
-    .main-content {
-      grid-template-columns: 1fr;
-      padding: 14px 12px;
-      gap: 14px;
-    }
-    .card {
-      padding: 16px 14px;
-    }
-    .link-item {
-      font-size: 15px;
-      padding: 12px 13px;
-    }
-    .texts-grid {
-      grid-template-columns: 1fr;
-    }
-    .sql-grid {
-      grid-template-columns: 1fr;
-    }
-    .full-section {
-      padding: 16px 14px;
-    }
-    textarea.txt-area {
-      font-size: 14px;
-      min-height: 80px;
-    }
-    textarea.sql-area {
-      font-size: 13px;
-    }
-    .text-label {
-      font-size: 14px;
-    }
-    .btn-copiar {
-      font-size: 14px;
-      padding: 10px 14px;
-    }
-  }
-</style>
-
-<div class="portal-root">
-  <header class="portal-header">
-    <div class="header-top">
-      <div class="header-icon">🏛️</div>
-      <div>
-        <div class="header-title">
-          Central de
-          <span class="header-gold" style="display: inline"
-            >Portais Fiscais</span
+        <div class="nav-desktop" id="nav-desktop">
+          <a
+            href="https://andre-jnr.github.io/manual-faturamento/"
+            class="tool-btn"
+            target="_blank"
+            >📘 Manual de Faturamento</a
+          >
+          <a
+            href="https://andre-jnr.github.io/fechamento-fiscal/"
+            class="tool-btn"
+            target="_blank"
+            >📊 Fechamento Fiscal</a
+          >
+          <a
+            href="https://calculo-custo-unitario.streamlit.app/"
+            class="tool-btn"
+            target="_blank"
+            >🧮 Calculadora de Custos</a
+          >
+          <a
+            href="https://leitor-nfe-ambev.streamlit.app/"
+            class="tool-btn"
+            target="_blank"
+            >🍾 Entrada AMBEV</a
+          >
+          <a
+            href="https://andre-jnr.github.io/entrada-gouveia/"
+            class="tool-btn"
+            target="_blank"
+            >🫚 Entrada Gouveia</a
+          >
+          <a
+            href="https://andre-jnr.github.io/entrada-nestle/"
+            class="tool-btn"
+            target="_blank"
+            >🥛 Entrada Nestlé</a
           >
         </div>
-        <div class="header-sub">Fiscal · Faturamento · Controladoria</div>
-      </div>
-    </div>
-  </header>
 
-  <nav class="nav-tools">
-    <button
-      class="hamburger-btn"
-      onclick="toggleMenu()"
-      id="hbtn"
-      aria-label="Menu de ferramentas"
-    >
-      <span id="hicon">☰</span>
-      <span class="hamburger-label">Ferramentas</span>
-    </button>
-
-    <div
-      class="nav-desktop"
-      id="nav-desktop"
-      style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center"
-    >
-      <a
-        href="https://andre-jnr.github.io/manual-faturamento/"
-        class="tool-btn"
-        target="_blank"
-        >📘 Manual de Faturamento</a
-      >
-      <a
-        href="https://andre-jnr.github.io/fechamento-fiscal/"
-        class="tool-btn"
-        target="_blank"
-        >📊 Fechamento Fiscal</a
-      >
-      <a
-        href="https://calculo-custo-unitario.streamlit.app/"
-        class="tool-btn"
-        target="_blank"
-        >🧮 Calculadora de Custos</a
-      >
-      <a
-        href="https://leitor-nfe-ambev.streamlit.app/"
-        class="tool-btn"
-        target="_blank"
-        >🍾 Entrada AMBEV</a
-      >
-      <a
-        href="https://andre-jnr.github.io/entrada-gouveia/"
-        class="tool-btn"
-        target="_blank"
-        >🫚 Entrada Gouveia</a
-      >
-      <a
-        href="https://andre-jnr.github.io/entrada-nestle/"
-        class="tool-btn"
-        target="_blank"
-        >🥛 Entrada Nestlé</a
-      >
-    </div>
-
-    <div class="mobile-menu" id="mobile-menu">
-      <a
-        href="https://andre-jnr.github.io/manual-faturamento/"
-        class="tool-btn"
-        target="_blank"
-        >📘 Manual de Faturamento</a
-      >
-      <a
-        href="https://andre-jnr.github.io/fechamento-fiscal/"
-        class="tool-btn"
-        target="_blank"
-        >📊 Fechamento Fiscal</a
-      >
-      <a
-        href="https://calculo-custo-unitario.streamlit.app/"
-        class="tool-btn"
-        target="_blank"
-        >🧮 Calculadora de Custos</a
-      >
-    </div>
-  </nav>
-
-  <main class="main-content">
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">🧾</div>
-        <div class="card-title">
-          Links Faturamento<span>NF-e · SEFAZ · Suframa</span>
+        <div class="mobile-menu" id="mobile-menu">
+          <a
+            href="https://andre-jnr.github.io/manual-faturamento/"
+            class="tool-btn"
+            target="_blank"
+            >📘 Manual de Faturamento</a
+          >
+          <a
+            href="https://andre-jnr.github.io/fechamento-fiscal/"
+            class="tool-btn"
+            target="_blank"
+            >📊 Fechamento Fiscal</a
+          >
+          <a
+            href="https://calculo-custo-unitario.streamlit.app/"
+            class="tool-btn"
+            target="_blank"
+            >🧮 Calculadora de Custos</a
+          >
+          <a
+            href="https://leitor-nfe-ambev.streamlit.app/"
+            class="tool-btn"
+            target="_blank"
+            >🍾 Entrada AMBEV</a
+          >
+          <a
+            href="https://andre-jnr.github.io/entrada-gouveia/"
+            class="tool-btn"
+            target="_blank"
+            >🫚 Entrada Gouveia</a
+          >
+          <a
+            href="https://andre-jnr.github.io/entrada-nestle/"
+            class="tool-btn"
+            target="_blank"
+            >🥛 Entrada Nestlé</a
+          >
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="https://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConsulta=resumo&tipoConteudo=7PhJ+gAVw2g="
-          target="_blank"
-          ><span class="link-emoji">📄</span> Consulta NF-e
-          <span class="link-arrow">↗</span></a
-        >
-        <a class="link-item" href="https://www.sefaz.am.gov.br/" target="_blank"
-          ><span class="link-emoji">🏛️</span> SEFAZ
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://simnac.suframa.gov.br/#/consultar-quadro-pin"
-          target="_blank"
-          ><span class="link-emoji">🔑</span> Liberação de PIN
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://nfse-prd.manaus.am.gov.br/nfse/servlet/hlogin"
-          target="_blank"
-          ><span class="link-emoji">🧾</span> Notas Manaus
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www.nfse.gov.br/EmissorNacional/Dashboard"
-          target="_blank"
-          ><span class="link-emoji">🧾</span> Notas de Serviço Nacionais
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www4.suframa.gov.br/Default.aspx"
-          target="_blank"
-          ><span class="link-emoji">💳</span> Taxa Suframa
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
+      </nav>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">📑</div>
-        <div class="card-title">
-          Certidões<span>CNPJ · Sintegra · Suframa</span>
+      <main class="main-content">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🧾</div>
+            <div class="card-title">
+              Links Faturamento<span>NF-e · SEFAZ · Suframa</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="https://www.nfe.fazenda.gov.br/portal/consultaRecaptcha.aspx?tipoConsulta=resumo&tipoConteudo=7PhJ+gAVw2g="
+              target="_blank"
+              ><span class="link-emoji">📄</span> Consulta NF-e
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.sefaz.am.gov.br/"
+              target="_blank"
+              ><span class="link-emoji">🏛️</span> SEFAZ
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://simnac.suframa.gov.br/#/consultar-quadro-pin"
+              target="_blank"
+              ><span class="link-emoji">🔑</span> Liberação de PIN
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://nfse-prd.manaus.am.gov.br/nfse/servlet/hlogin"
+              target="_blank"
+              ><span class="link-emoji">🧾</span> Notas Manaus
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.nfse.gov.br/EmissorNacional/Dashboard"
+              target="_blank"
+              ><span class="link-emoji">🧾</span> Notas de Serviço Nacionais
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www4.suframa.gov.br/Default.aspx"
+              target="_blank"
+              ><span class="link-emoji">💳</span> Taxa Suframa
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="https://solucoes.receita.fazenda.gov.br/Servicos/cnpjreva/cnpjreva_Solicitacao.asp"
-          target="_blank"
-          ><span class="link-emoji">🪪</span> Cartão CNPJ
-          <span class="link-arrow">↗</span></a
-        >
-        <a class="link-item" href="https://www.sintegra.gov.br/" target="_blank"
-          ><span class="link-emoji">📑</span> Sintegra (Inscrição Estadual)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www4.suframa.gov.br/cadsuf/#/situacao-cadastral"
-          target="_blank"
-          ><span class="link-emoji">🗂️</span> Inscrição Suframa
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21"
-          target="_blank"
-          ><span class="link-emoji">📜</span> Optante Simples Nacional
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">🏙️</div>
-        <div class="card-title">
-          MouraWeb<span>Parque Dez · Ponta Negra · CD</span>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">📑</div>
+            <div class="card-title">
+              Certidões<span>CNPJ · Sintegra · Suframa</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="https://solucoes.receita.fazenda.gov.br/Servicos/cnpjreva/cnpjreva_Solicitacao.asp"
+              target="_blank"
+              ><span class="link-emoji">🪪</span> Cartão CNPJ
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.sintegra.gov.br/"
+              target="_blank"
+              ><span class="link-emoji">📑</span> Sintegra (Inscrição
+              Estadual) <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www4.suframa.gov.br/cadsuf/#/situacao-cadastral"
+              target="_blank"
+              ><span class="link-emoji">🗂️</span> Inscrição Suframa
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www8.receita.fazenda.gov.br/simplesnacional/aplicacoes.aspx?id=21"
+              target="_blank"
+              ><span class="link-emoji">📜</span> Optante Simples Nacional
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="http://serverprq10/Moura/Login"
-          target="_blank"
-          ><span class="link-emoji">🏙️</span> Parque Dez
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="http://25.28.125.229/Moura/Principal"
-          target="_blank"
-          ><span class="link-emoji">🏖️</span> Ponta Negra (Hamachi)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="http://server_pn/Moura/Principal"
-          target="_blank"
-          ><span class="link-emoji">🏖️</span> Ponta Negra (Server PN)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="http://26.205.238.110/Moura/Principal"
-          target="_blank"
-          ><span class="link-emoji">🏖️</span> Ponta Negra (radmin)
-          <span class="link-arrow">↗</span></a
-        >
-        <a class="link-item" href="http://serverad/Moura/Login" target="_blank"
-          ><span class="link-emoji">☀️</span> Morada do Sol
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="http://serverprq10/Moura_CD/Login"
-          target="_blank"
-          ><span class="link-emoji">📦</span> CD
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="http://186.233.224.137/Moura_Monte"
-          target="_blank"
-          ><span class="link-emoji">⛰️</span> Monte das Oliveiras
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">🖨️</div>
-        <div class="card-title">
-          DANFE (PDF e XML)<span>Consulta · Visualização</span>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🏙️</div>
+            <div class="card-title">
+              MouraWeb<span>Parque Dez · Ponta Negra · CD</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="http://serverprq10/Moura/Login"
+              target="_blank"
+              ><span class="link-emoji">🏙️</span> Parque Dez
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://25.28.125.229/Moura/Principal"
+              target="_blank"
+              ><span class="link-emoji">🏖️</span> Ponta Negra (Hamachi)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://server_pn/Moura/Principal"
+              target="_blank"
+              ><span class="link-emoji">🏖️</span> Ponta Negra (Server PN)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://26.205.238.110/Moura/Principal"
+              target="_blank"
+              ><span class="link-emoji">🏖️</span> Ponta Negra (radmin)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://serverad/Moura/Login"
+              target="_blank"
+              ><span class="link-emoji">☀️</span> Morada do Sol
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://serverprq10/Moura_CD/Login"
+              target="_blank"
+              ><span class="link-emoji">📦</span> CD
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://186.233.224.137/Moura_Monte"
+              target="_blank"
+              ><span class="link-emoji">⛰️</span> Monte das Oliveiras
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="https://app.arquivei.com.br/login"
-          target="_blank"
-          ><span class="link-emoji">📂</span> Arquivei
-          <span class="link-arrow">↗</span></a
-        >
-        <a class="link-item" href="https://consultadanfe.com/" target="_blank"
-          ><span class="link-emoji">🔍</span> Consultar DANFE
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www.danfeonline.com.br/"
-          target="_blank"
-          ><span class="link-emoji">🖨️</span> DANFE Online
-          <span class="link-arrow">↗</span></a
-        >
-        <a class="link-item" href="https://www.meudanfe.com.br/" target="_blank"
-          ><span class="link-emoji">📑</span> Meu DANFE
-          <span class="link-arrow">↗</span></a
-        >
-        <a class="link-item" href="https://www.fsist.com.br/" target="_blank"
-          ><span class="link-emoji">💻</span> FSis
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">🗂️</div>
-        <div class="card-title">
-          Documentos para Cadastro<span>Drive — Unidades</span>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🖨️</div>
+            <div class="card-title">
+              DANFE (PDF e XML)<span>Consulta · Visualização</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="https://app.arquivei.com.br/login"
+              target="_blank"
+              ><span class="link-emoji">📂</span> Arquivei
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://consultadanfe.com/"
+              target="_blank"
+              ><span class="link-emoji">🔍</span> Consultar DANFE
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.danfeonline.com.br/"
+              target="_blank"
+              ><span class="link-emoji">🖨️</span> DANFE Online
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.meudanfe.com.br/"
+              target="_blank"
+              ><span class="link-emoji">📑</span> Meu DANFE
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.fsist.com.br/"
+              target="_blank"
+              ><span class="link-emoji">💻</span> FSis
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="https://drive.google.com/drive/folders/1vaAGqp4T4B66zwdt8yJHSM8StmZ1V9Ap?usp=drive_link"
-          target="_blank"
-          ><span class="link-emoji">🏙️</span> Parque Dez
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://drive.google.com/drive/folders/1ssY13mBGQMkFIevLKNj8sxTxd49ktPjc?usp=drive_link"
-          target="_blank"
-          ><span class="link-emoji">🏖️</span> Ponta Negra
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://drive.google.com/drive/folders/1IbQ8qRkmy9wKURlHxsFn6-ra569hWRTr?usp=drive_link"
-          target="_blank"
-          ><span class="link-emoji">☀️</span> Morada do Sol
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://drive.google.com/drive/folders/11TdPK_xyq0PANb7oiazceSn2CnBfLdAU?usp=drive_link"
-          target="_blank"
-          ><span class="link-emoji">⛰️</span> Monte das Oliveiras
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://drive.google.com/drive/folders/1fJXqApSwxBX4qdyreE494p2bFpmEpW7A?usp=drive_link"
-          target="_blank"
-          ><span class="link-emoji">📦</span> CD
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">🌐</div>
-        <div class="card-title">
-          Portais de Gestão Fiscal<span>NF-e · CT-e · SIMNAC · NFS-e</span>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🗂️</div>
+            <div class="card-title">
+              Documentos para Cadastro<span>Drive — Unidades</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="https://drive.google.com/drive/folders/1vaAGqp4T4B66zwdt8yJHSM8StmZ1V9Ap?usp=drive_link"
+              target="_blank"
+              ><span class="link-emoji">🏙️</span> Parque Dez
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://drive.google.com/drive/folders/1ssY13mBGQMkFIevLKNj8sxTxd49ktPjc?usp=drive_link"
+              target="_blank"
+              ><span class="link-emoji">🏖️</span> Ponta Negra
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://drive.google.com/drive/folders/1IbQ8qRkmy9wKURlHxsFn6-ra569hWRTr?usp=drive_link"
+              target="_blank"
+              ><span class="link-emoji">☀️</span> Morada do Sol
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://drive.google.com/drive/folders/11TdPK_xyq0PANb7oiazceSn2CnBfLdAU?usp=drive_link"
+              target="_blank"
+              ><span class="link-emoji">⛰️</span> Monte das Oliveiras
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://drive.google.com/drive/folders/1fJXqApSwxBX4qdyreE494p2bFpmEpW7A?usp=drive_link"
+              target="_blank"
+              ><span class="link-emoji">📦</span> CD
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="https://www.nfe.fazenda.gov.br/portal/principal.aspx"
-          target="_blank"
-          ><span class="link-emoji">🌐</span> Portal da NF-e
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://dfe-portal.svrs.rs.gov.br/cte"
-          target="_blank"
-          ><span class="link-emoji">🚛</span> Portal do CT-e
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://simnac.suframa.gov.br/#/"
-          target="_blank"
-          ><span class="link-emoji">🏗️</span> SIMNAC (Suframa)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www4.suframa.gov.br/Default.aspx"
-          target="_blank"
-          ><span class="link-emoji">🏢</span> Portal Suframa
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://sal.rfb.gov.br/PortalSalInternet/faces/pages/index.xhtml"
-          target="_blank"
-          ><span class="link-emoji">🧮</span> Guia GPS (INSS)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor"
-          target="_blank"
-          ><span class="link-emoji">💼</span> Portal do Empreendedor
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/nota-fiscal/nota-fiscal-de-servico-eletronica-nfs-e"
-          target="_blank"
-          ><span class="link-emoji">🧾</span> Emitir NFS-e (MEI)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://www.nfse.gov.br/EmissorNacional/Login?ReturnUrl=%2fEmissorNacional"
-          target="_blank"
-          ><span class="link-emoji">🧑‍💻</span> Gestão NFS-e
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">⚖️</div>
-        <div class="card-title">
-          Links Fiscais<span>Legislação · Alíquotas · NCM</span>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🌐</div>
+            <div class="card-title">
+              Portais de Gestão Fiscal<span>NF-e · CT-e · SIMNAC · NFS-e</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="https://www.nfe.fazenda.gov.br/portal/principal.aspx"
+              target="_blank"
+              ><span class="link-emoji">🌐</span> Portal da NF-e
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://dfe-portal.svrs.rs.gov.br/cte"
+              target="_blank"
+              ><span class="link-emoji">🚛</span> Portal do CT-e
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://simnac.suframa.gov.br/#/"
+              target="_blank"
+              ><span class="link-emoji">🏗️</span> SIMNAC (Suframa)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www4.suframa.gov.br/Default.aspx"
+              target="_blank"
+              ><span class="link-emoji">🏢</span> Portal Suframa
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://sal.rfb.gov.br/PortalSalInternet/faces/pages/index.xhtml"
+              target="_blank"
+              ><span class="link-emoji">🧮</span> Guia GPS (INSS)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor"
+              target="_blank"
+              ><span class="link-emoji">💼</span> Portal do Empreendedor
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/servicos-para-mei/nota-fiscal/nota-fiscal-de-servico-eletronica-nfs-e"
+              target="_blank"
+              ><span class="link-emoji">🧾</span> Emitir NFS-e (MEI)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://www.nfse.gov.br/EmissorNacional/Login?ReturnUrl=%2fEmissorNacional"
+              target="_blank"
+              ><span class="link-emoji">🧑‍💻</span> Gestão NFS-e
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a
-          class="link-item"
-          href="https://www.econeteditora.com.br/index.asp?url=inicial.php"
-          target="_blank"
-          ><span class="link-emoji">📚</span> Econet Editora
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://sistemas.sefaz.am.gov.br/get/Normas.do?metodo=viewDoc&uuidDoc=eae39ccd-f014-4291-916b-59b9c089e97b"
-          target="_blank"
-          ><span class="link-emoji">⚖️</span> Decreto de Alíquotas ICMS
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="http://www.ccentral.com.br/web/documentos/CST-CSOSN.pdf"
-          target="_blank"
-          ><span class="link-emoji">📖</span> Tabela CST
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://sistemas.sefaz.am.gov.br/gdd/pages/content/autodesembaraco/tabelatributacao/indices_355.pdf"
-          target="_blank"
-          ><span class="link-emoji">📊</span> Alíquotas Internas SEFAZ AM
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://codigocest.com.br/consulta-codigo-cest-pelo-ncm"
-          target="_blank"
-          ><span class="link-emoji">🔍</span> Consultar CEST pelo NCM
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon">🏭</div>
-        <div class="card-title">
-          Frigorífico Amazonas<span>Atak · E-mail · OnBeef</span>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">⚖️</div>
+            <div class="card-title">
+              Links Fiscais<span>Legislação · Alíquotas · NCM</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="https://www.econeteditora.com.br/index.asp?url=inicial.php"
+              target="_blank"
+              ><span class="link-emoji">📚</span> Econet Editora
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://sistemas.sefaz.am.gov.br/get/Normas.do?metodo=viewDoc&uuidDoc=eae39ccd-f014-4291-916b-59b9c089e97b"
+              target="_blank"
+              ><span class="link-emoji">⚖️</span> Decreto de Alíquotas ICMS
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="http://www.ccentral.com.br/web/documentos/CST-CSOSN.pdf"
+              target="_blank"
+              ><span class="link-emoji">📖</span> Tabela CST
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://sistemas.sefaz.am.gov.br/gdd/pages/content/autodesembaraco/tabelatributacao/indices_355.pdf"
+              target="_blank"
+              ><span class="link-emoji">📊</span> Alíquotas Internas SEFAZ AM
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://codigocest.com.br/consulta-codigo-cest-pelo-ncm"
+              target="_blank"
+              ><span class="link-emoji">🔍</span> Consultar CEST pelo NCM
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-      </div>
-      <div class="link-list">
-        <a class="link-item" href="http://25.2.180.31:8080/app/" target="_blank"
-          ><span class="link-emoji">🏭</span> Portal Atak
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://webmail-seguro.com.br/?_task=mail&_mbox=INBOX"
-          target="_blank"
-          ><span class="link-emoji">📧</span> E-mail LocalWeb
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://lojista.onbeefapp.com.br/login"
-          target="_blank"
-          ><span class="link-emoji">🛵</span> OnBeef (adm)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://frigorifico-amazonas-pq10.onbeef.link"
-          target="_blank"
-          ><span class="link-emoji">🛵</span> OnBeef (cliente – Pq10)
-          <span class="link-arrow">↗</span></a
-        >
-        <a
-          class="link-item"
-          href="https://frigorifico-amazonas-pn.onbeef.link"
-          target="_blank"
-          ><span class="link-emoji">🛵</span> OnBeef (cliente – PN)
-          <span class="link-arrow">↗</span></a
-        >
-      </div>
-    </div>
 
-    <div class="full-section">
-      <div class="section-header">
-        <div class="card-icon" style="background: rgba(212, 175, 55, 0.12)">
-          📋
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon">🏭</div>
+            <div class="card-title">
+              Frigorífico Amazonas<span>Atak · E-mail · OnBeef</span>
+            </div>
+          </div>
+          <div class="link-list">
+            <a
+              class="link-item"
+              href="http://25.2.180.31:8080/app/"
+              target="_blank"
+              ><span class="link-emoji">🏭</span> Portal Atak
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://webmail-seguro.com.br/?_task=mail&_mbox=INBOX"
+              target="_blank"
+              ><span class="link-emoji">📧</span> E-mail LocalWeb
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://lojista.onbeefapp.com.br/login"
+              target="_blank"
+              ><span class="link-emoji">🛵</span> OnBeef (adm)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://frigorifico-amazonas-pq10.onbeef.link"
+              target="_blank"
+              ><span class="link-emoji">🛵</span> OnBeef (cliente – Pq10)
+              <span class="link-arrow">↗</span></a
+            >
+            <a
+              class="link-item"
+              href="https://frigorifico-amazonas-pn.onbeef.link"
+              target="_blank"
+              ><span class="link-emoji">🛵</span> OnBeef (cliente – PN)
+              <span class="link-arrow">↗</span></a
+            >
+          </div>
         </div>
-        <h2>Textos para copiar e colar</h2>
-      </div>
-      <div class="texts-grid">
-        <div class="text-block">
-          <div class="text-label">Produtor rural — retenção 1,5%</div>
-          <div class="copy-row">
-            <textarea class="txt-area" id="txt-sarkis" readonly>
+
+        <div class="full-section">
+          <div class="section-header">
+            <div class="card-icon" style="background: rgba(212, 175, 55, 0.12)">
+              📋
+            </div>
+            <h2>Textos para copiar e colar</h2>
+          </div>
+          <div class="texts-grid">
+            <div class="text-block">
+              <div class="text-label">Produtor rural — retenção 1,5%</div>
+              <div class="copy-row">
+                <textarea class="txt-area" id="txt-sarkis" readonly>
  REF NF PRODUTOR RURAL Nº [colocar o número da nota aqui] DE FELISBERTO SARKIS. PGTO COM 1,5% DE RETENÇÃO. VALOR PARA PGTO R$ [colocar o valor com a retenção aqui].</textarea
-            >
-            <button
-              class="btn-copiar"
-              onclick="copiar('txt-sarkis', 'fb-sarkis', this)"
-            >
-              Copiar
-            </button>
-          </div>
-          <div class="copy-feedback" id="fb-sarkis">✓ Copiado!</div>
-        </div>
-        <div class="text-block">
-          <div class="text-label">Devolução parcial de NF</div>
-          <div class="copy-row">
-            <textarea class="txt-area" id="txt-dev" readonly>
+                >
+                <button
+                  class="btn-copiar"
+                  onclick="copiar('txt-sarkis', 'fb-sarkis', this)"
+                >
+                  Copiar
+                </button>
+              </div>
+              <div class="copy-feedback" id="fb-sarkis">✓ Copiado!</div>
+            </div>
+            <div class="text-block">
+              <div class="text-label">Devolução parcial de NF</div>
+              <div class="copy-row">
+                <textarea class="txt-area" id="txt-dev" readonly>
  DEVOLUÇÃO PARCIAL REF A NF [número da nota de origem aqui], ITENS [código dos itens devolvidos aqui] DEVIDO A DIVERGENCIA ENTRE O PRODUTO RECEBIDO E O SOLICITADO.</textarea
-            >
-            <button
-              class="btn-copiar"
-              onclick="copiar('txt-dev', 'fb-dev', this)"
-            >
-              Copiar
-            </button>
-          </div>
-          <div class="copy-feedback" id="fb-dev">✓ Copiado!</div>
-        </div>
-        <div class="text-block">
-          <div class="text-label">
-            Reanálise de carnes — alíquota acima de 5% (completo)
-          </div>
-          <div class="copy-row">
-            <textarea class="txt-area" id="txt-reanalise5" readonly>
+                >
+                <button
+                  class="btn-copiar"
+                  onclick="copiar('txt-dev', 'fb-dev', this)"
+                >
+                  Copiar
+                </button>
+              </div>
+              <div class="copy-feedback" id="fb-dev">✓ Copiado!</div>
+            </div>
+            <div class="text-block">
+              <div class="text-label">
+                Reanálise de carnes — alíquota acima de 5% (completo)
+              </div>
+              <div class="copy-row">
+                <textarea class="txt-area" id="txt-reanalise5" readonly>
  Redação anterior dada pelo Decreto 21.616/00, efeitos a partir de 1º.1.2001:
 § 13. Na primeira saída interna com carnes e vísceras, frango e produtos de sua matança, provenientes de outra unidade da Federação, a base de cálculo fica reduzida de forma que a carga tributária resulte em cinco por cento do valor da operação, caso em que as mercadorias serão consideradas já tributadas nas demais fases de comercialização, vedado o aproveitamento de crédito, exceto o decorrente da antecipação tributária.</textarea
-            >
-            <button
-              class="btn-copiar"
-              onclick="copiar('txt-reanalise5', 'fb-r5', this)"
-            >
-              Copiar
-            </button>
-          </div>
-          <div class="copy-feedback" id="fb-r5">✓ Copiado!</div>
-        </div>
-        <div class="text-block">
-          <div class="text-label">
-            Reanálise de carnes — alíquota acima de 5% (resumido)
-          </div>
-          <div class="copy-row">
-            <textarea class="txt-area" id="txt-reanalise5-resumido" readonly>
+                >
+                <button
+                  class="btn-copiar"
+                  onclick="copiar('txt-reanalise5', 'fb-r5', this)"
+                >
+                  Copiar
+                </button>
+              </div>
+              <div class="copy-feedback" id="fb-r5">✓ Copiado!</div>
+            </div>
+            <div class="text-block">
+              <div class="text-label">
+                Reanálise de carnes — alíquota acima de 5% (resumido)
+              </div>
+              <div class="copy-row">
+                <textarea
+                  class="txt-area"
+                  id="txt-reanalise5-resumido"
+                  readonly
+                >
 Conforme o DECRETO Nº 20.686, DE 28 DE DEZEMBRO DE 1999. § 13. Na primeira saída interna com carnes e vísceras, frango e produtos de sua matança, provenientes de outra unidade da Federação, a base de cálculo fica reduzida de forma que a carga tributária resulte em cinco por cento do valor da operação</textarea
-            >
-            <button
-              class="btn-copiar"
-              onclick="copiar('txt-reanalise5-resumido', 'fb-r5r', this)"
-            >
-              Copiar
-            </button>
+                >
+                <button
+                  class="btn-copiar"
+                  onclick="copiar('txt-reanalise5-resumido', 'fb-r5r', this)"
+                >
+                  Copiar
+                </button>
+              </div>
+              <div class="copy-feedback" id="fb-r5r">✓ Copiado!</div>
+            </div>
           </div>
-          <div class="copy-feedback" id="fb-r5r">✓ Copiado!</div>
         </div>
-      </div>
-    </div>
 
-    <div class="full-section">
-      <div class="section-header">
-        <div class="card-icon" style="background: rgba(26, 37, 53, 0.08)">
-          ⚙️
-        </div>
-        <h2>Comandos para banco de dados</h2>
-      </div>
-      <div class="sql-grid">
-        <div>
-          <div class="text-label" style="margin-bottom: 7px">SELECT</div>
-          <textarea class="sql-area" id="txt-select" readonly>
+        <div class="full-section">
+          <div class="section-header">
+            <div class="card-icon" style="background: rgba(26, 37, 53, 0.08)">
+              ⚙️
+            </div>
+            <h2>Comandos para banco de dados</h2>
+          </div>
+          <div class="sql-grid">
+            <div>
+              <div class="text-label" style="margin-bottom: 7px">SELECT</div>
+              <textarea class="sql-area" id="txt-select" readonly>
 select * from [nome_tabela]
 where [campo] = [valor_índice];</textarea
-          >
-          <button
-            class="btn-copiar"
-            onclick="copiar('txt-select', 'fb-sel', this)"
-          >
-            Copiar
-          </button>
-          <div class="copy-feedback" id="fb-sel">✓ Copiado!</div>
-        </div>
-        <div>
-          <div class="text-label" style="margin-bottom: 7px">INSERT</div>
-          <textarea class="sql-area" id="txt-insert" readonly>
+              >
+              <button
+                class="btn-copiar"
+                onclick="copiar('txt-select', 'fb-sel', this)"
+              >
+                Copiar
+              </button>
+              <div class="copy-feedback" id="fb-sel">✓ Copiado!</div>
+            </div>
+            <div>
+              <div class="text-label" style="margin-bottom: 7px">INSERT</div>
+              <textarea class="sql-area" id="txt-insert" readonly>
 insert into [nome_tabela]
     ([campo1], [campo2], [campo3])
 values
     ([valor1], [valor2], [valor3]);</textarea
-          >
-          <button
-            class="btn-copiar"
-            onclick="copiar('txt-insert', 'fb-ins', this)"
-          >
-            Copiar
-          </button>
-          <div class="copy-feedback" id="fb-ins">✓ Copiado!</div>
-        </div>
-        <div>
-          <div class="text-label" style="margin-bottom: 7px">UPDATE</div>
-          <textarea class="sql-area" id="txt-update" readonly>
+              >
+              <button
+                class="btn-copiar"
+                onclick="copiar('txt-insert', 'fb-ins', this)"
+              >
+                Copiar
+              </button>
+              <div class="copy-feedback" id="fb-ins">✓ Copiado!</div>
+            </div>
+            <div>
+              <div class="text-label" style="margin-bottom: 7px">UPDATE</div>
+              <textarea class="sql-area" id="txt-update" readonly>
 update [nome_tabela]
 set [campo] = [novo_valor]
 where [campo_indice] = [valor_indice];</textarea
-          >
-          <button
-            class="btn-copiar"
-            onclick="copiar('txt-update', 'fb-upd', this)"
-          >
-            Copiar
-          </button>
-          <div class="copy-feedback" id="fb-upd">✓ Copiado!</div>
-        </div>
-        <div>
-          <div class="text-label" style="margin-bottom: 7px">DELETE</div>
-          <textarea class="sql-area" id="txt-delete" readonly>
+              >
+              <button
+                class="btn-copiar"
+                onclick="copiar('txt-update', 'fb-upd', this)"
+              >
+                Copiar
+              </button>
+              <div class="copy-feedback" id="fb-upd">✓ Copiado!</div>
+            </div>
+            <div>
+              <div class="text-label" style="margin-bottom: 7px">DELETE</div>
+              <textarea class="sql-area" id="txt-delete" readonly>
 delete from [nome_tabela]
 where [campo_indice] = [valor_indice];</textarea
-          >
-          <button
-            class="btn-copiar"
-            onclick="copiar('txt-delete', 'fb-del', this)"
-          >
-            Copiar
-          </button>
-          <div class="copy-feedback" id="fb-del">✓ Copiado!</div>
+              >
+              <button
+                class="btn-copiar"
+                onclick="copiar('txt-delete', 'fb-del', this)"
+              >
+                Copiar
+              </button>
+              <div class="copy-feedback" id="fb-del">✓ Copiado!</div>
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
-  </main>
-</div>
 
-<script>
-  function toggleMenu() {
-    var m = document.getElementById('mobile-menu')
-    var icon = document.getElementById('hicon')
-    var open = m.classList.toggle('open')
-    icon.textContent = open ? '✕' : '☰'
-  }
-
-  function copiar(id, fbId, btn) {
-    var el = document.getElementById(id)
-    el.select()
-    el.setSelectionRange(0, 99999)
-    try {
-      navigator.clipboard.writeText(el.value).catch(function () {
-        document.execCommand('copy')
-      })
-    } catch (e) {
-      document.execCommand('copy')
-    }
-    btn.textContent = '✓ Copiado'
-    btn.classList.add('copied')
-    var fb = document.getElementById(fbId)
-    if (fb) fb.classList.add('show')
-    setTimeout(function () {
-      btn.textContent = 'Copiar'
-      btn.classList.remove('copied')
-      if (fb) fb.classList.remove('show')
-    }, 2000)
-  }
-
-  function handleResize() {
-    var nd = document.getElementById('nav-desktop')
-    var mm = document.getElementById('mobile-menu')
-    var hbtn = document.getElementById('hbtn')
-    var icon = document.getElementById('hicon')
-    if (window.innerWidth > 640) {
-      nd.style.display = 'flex'
-      hbtn.style.display = 'none'
-      mm.classList.remove('open')
-      icon.textContent = '☰'
-    } else {
-      nd.style.display = 'none'
-      hbtn.style.display = 'flex'
-    }
-  }
-  handleResize()
-  window.addEventListener('resize', handleResize)
-</script>
+    <script src="script.js"></script>
+  </body>
+</html>
