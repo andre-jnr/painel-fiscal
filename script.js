@@ -1,10 +1,3 @@
-function toggleMenu() {
-  var m = document.getElementById('mobile-menu')
-  var icon = document.getElementById('hicon')
-  var open = m.classList.toggle('open')
-  icon.textContent = open ? '✕' : '☰'
-}
-
 function copiar(id, fbId, btn) {
   var el = document.getElementById(id)
   el.select()
@@ -26,22 +19,3 @@ function copiar(id, fbId, btn) {
     if (fb) fb.classList.remove('show')
   }, 2000)
 }
-
-function handleResize() {
-  var nd = document.getElementById('nav-desktop')
-  var mm = document.getElementById('mobile-menu')
-  var hbtn = document.getElementById('hbtn')
-  var icon = document.getElementById('hicon')
-  if (window.innerWidth > 640) {
-    nd.style.display = 'flex'
-    hbtn.style.display = 'none'
-    mm.classList.remove('open')
-    icon.textContent = '☰'
-  } else {
-    nd.style.display = 'none'
-    hbtn.style.display = 'flex'
-  }
-}
-
-handleResize()
-window.addEventListener('resize', handleResize)
