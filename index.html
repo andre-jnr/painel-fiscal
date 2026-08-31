@@ -6,6 +6,18 @@
     <title>Central de Portais Fiscais</title>
     <link rel="shortcut icon" href="contabilidade.ico" type="image/x-icon" />
     <link rel="stylesheet" href="style.css" />
+    <script>
+      // Aplica o tema salvo antes da renderização para evitar "flash".
+      // Sem valor salvo, o CSS segue a preferência do sistema/navegador.
+      (function () {
+        try {
+          var t = localStorage.getItem('painel-fiscal-theme')
+          if (t === 'dark' || t === 'light') {
+            document.documentElement.setAttribute('data-theme', t)
+          }
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div class="portal-root">
@@ -19,6 +31,15 @@
             </div>
             <div class="header-sub">Fiscal · Faturamento · Controladoria</div>
           </div>
+          <button
+            id="theme-toggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Alternar modo claro/escuro"
+            title="Alternar modo claro/escuro"
+          >
+            🌙
+          </button>
         </div>
       </header>
 
@@ -498,9 +519,7 @@
 
         <div class="full-section">
           <div class="section-header">
-            <div class="card-icon" style="background: rgba(212, 175, 55, 0.12)">
-              📋
-            </div>
+            <div class="card-icon">📋</div>
             <h2>Textos para copiar e colar</h2>
           </div>
           <div class="texts-grid">
@@ -578,9 +597,7 @@ Conforme o DECRETO Nº 20.686, DE 28 DE DEZEMBRO DE 1999. § 13. Na primeira sa�
 
         <div class="full-section">
           <div class="section-header">
-            <div class="card-icon" style="background: rgba(26, 37, 53, 0.08)">
-              ⚙️
-            </div>
+            <div class="card-icon">⚙️</div>
             <h2>Comandos para banco de dados</h2>
           </div>
           <div class="sql-grid">

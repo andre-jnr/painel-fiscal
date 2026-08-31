@@ -1,15 +1,120 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+:root {
+  --page-bg: #f4f7fa;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --card-border: rgba(18, 53, 91, 0.1);
+  --text: #2d3748;
+  --heading: #12355b;
+  --divider: rgba(212, 175, 55, 0.2);
+  --icon-bg: rgba(11, 31, 58, 0.08);
+  --shadow: rgba(11, 31, 58, 0.06);
+  --shadow-hover: rgba(11, 31, 58, 0.12);
+  --link-bg: #f4f7fa;
+  --link-border: rgba(18, 53, 91, 0.08);
+  --link-text: #1a2f4a;
+  --link-hover-bg: #0b1f3a;
+  --link-hover-text: #fff;
+  --input-bg: #f4f7fa;
+  --input-border: rgba(18, 53, 91, 0.12);
+  --input-text: #2d3748;
+}
+
+/* Modo escuro: segue a preferência do sistema/navegador por padrão... */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --page-bg: #0d1520;
+    --card-bg: rgba(23, 34, 51, 0.92);
+    --card-border: rgba(212, 175, 55, 0.14);
+    --text: #c7d2e0;
+    --heading: #e8eef5;
+    --divider: rgba(212, 175, 55, 0.22);
+    --icon-bg: rgba(212, 175, 55, 0.12);
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-hover: rgba(0, 0, 0, 0.45);
+    --link-bg: #1a2535;
+    --link-border: rgba(212, 175, 55, 0.12);
+    --link-text: #d6e2f0;
+    --link-hover-bg: #1a4a7a;
+    --link-hover-text: #fff;
+    --input-bg: #131c29;
+    --input-border: rgba(212, 175, 55, 0.15);
+    --input-text: #c7d2e0;
+  }
+}
+
+/* ...e o botão força a escolha do usuário em qualquer direção. */
+:root[data-theme='dark'] {
+  --page-bg: #0d1520;
+  --card-bg: rgba(23, 34, 51, 0.92);
+  --card-border: rgba(212, 175, 55, 0.14);
+  --text: #c7d2e0;
+  --heading: #e8eef5;
+  --divider: rgba(212, 175, 55, 0.22);
+  --icon-bg: rgba(212, 175, 55, 0.12);
+  --shadow: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.45);
+  --link-bg: #1a2535;
+  --link-border: rgba(212, 175, 55, 0.12);
+  --link-text: #d6e2f0;
+  --link-hover-bg: #1a4a7a;
+  --link-hover-text: #fff;
+  --input-bg: #131c29;
+  --input-border: rgba(212, 175, 55, 0.15);
+  --input-text: #c7d2e0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+body {
+  background: var(--page-bg);
+}
+
 .portal-root {
   font-family: 'Inter', sans-serif;
-  background: #f4f7fa;
-  color: #2d3748;
+  background: var(--page-bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Transição suave e sutil aplicada apenas no instante da troca de tema
+   (a classe .theme-changing é adicionada/removida pelo script.js). */
+html.theme-changing .portal-root,
+html.theme-changing .card,
+html.theme-changing .full-section,
+html.theme-changing .card-header,
+html.theme-changing .section-header,
+html.theme-changing .link-item,
+html.theme-changing .card-icon,
+html.theme-changing .card-title,
+html.theme-changing .section-header h2,
+html.theme-changing .text-label,
+html.theme-changing textarea.txt-area {
+  transition:
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-changing .portal-root,
+  html.theme-changing .card,
+  html.theme-changing .full-section,
+  html.theme-changing .card-header,
+  html.theme-changing .section-header,
+  html.theme-changing .link-item,
+  html.theme-changing .card-icon,
+  html.theme-changing .card-title,
+  html.theme-changing .section-header h2,
+  html.theme-changing .text-label,
+  html.theme-changing textarea.txt-area {
+    transition: none;
+  }
 }
 
 .portal-header {
@@ -27,12 +132,63 @@
   height: 200px;
   border-radius: 50%;
   background: rgba(212, 175, 55, 0.06);
+  pointer-events: none;
 }
 .header-top {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 14px;
   margin-bottom: 6px;
+}
+.theme-toggle {
+  margin-left: auto;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  color: #d4af37;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.theme-toggle:hover {
+  background: rgba(212, 175, 55, 0.28);
+  transform: scale(1.06);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+html.theme-changing .theme-toggle {
+  animation: theme-toggle-swap 0.5s ease;
+}
+@keyframes theme-toggle-swap {
+  0% {
+    transform: rotate(-30deg) scale(0.85);
+    opacity: 0.45;
+  }
+  60% {
+    transform: rotate(6deg) scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-changing .theme-toggle {
+    animation: none;
+  }
 }
 .header-icon {
   width: 48px;
@@ -155,18 +311,18 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(18, 53, 91, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 20px 18px 18px;
-  box-shadow: 0 2px 12px rgba(11, 31, 58, 0.06);
+  box-shadow: 0 2px 12px var(--shadow);
   transition:
     transform 0.2s,
     box-shadow 0.2s;
 }
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(11, 31, 58, 0.12);
+  box-shadow: 0 8px 24px var(--shadow-hover);
 }
 
 .card-header {
@@ -175,7 +331,7 @@
   gap: 10px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid var(--divider);
 }
 .card-icon {
   width: 34px;
@@ -186,14 +342,14 @@
   justify-content: center;
   font-size: 18px;
   flex-shrink: 0;
-  background: rgba(11, 31, 58, 0.08);
+  background: var(--icon-bg);
 }
 .card-title {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #12355b;
+  color: var(--heading);
 }
 .card-title span {
   display: block;
@@ -214,19 +370,19 @@
   align-items: center;
   gap: 9px;
   padding: 11px 13px;
-  background: #f4f7fa;
-  border: 1px solid rgba(18, 53, 91, 0.08);
+  background: var(--link-bg);
+  border: 1px solid var(--link-border);
   border-radius: 9px;
   text-decoration: none;
-  color: #1a2f4a;
+  color: var(--link-text);
   font-size: 14px;
   font-weight: 500;
   transition: all 0.18s;
 }
 .link-item:hover {
-  background: #0b1f3a;
-  color: #fff;
-  border-color: #0b1f3a;
+  background: var(--link-hover-bg);
+  color: var(--link-hover-text);
+  border-color: var(--link-hover-bg);
   transform: translateX(2px);
 }
 .link-emoji {
@@ -245,11 +401,11 @@
 
 .full-section {
   grid-column: 1 / -1;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(18, 53, 91, 0.1);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   padding: 22px;
-  box-shadow: 0 2px 12px rgba(11, 31, 58, 0.06);
+  box-shadow: 0 2px 12px var(--shadow);
 }
 .section-header {
   display: flex;
@@ -257,14 +413,14 @@
   gap: 10px;
   margin-bottom: 20px;
   padding-bottom: 14px;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid var(--divider);
 }
 .section-header h2 {
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: #12355b;
+  color: var(--heading);
 }
 
 .texts-grid {
@@ -275,7 +431,7 @@
 .text-label {
   font-size: 13px;
   font-weight: 600;
-  color: #12355b;
+  color: var(--heading);
   margin-bottom: 8px;
 }
 
@@ -288,17 +444,17 @@ textarea.txt-area {
   flex: 1;
   min-height: 90px;
   padding: 11px 13px;
-  border: 1px solid rgba(18, 53, 91, 0.12);
+  border: 1px solid var(--input-border);
   border-radius: 9px;
   resize: none;
-  background: #f4f7fa;
+  background: var(--input-bg);
   font-size: 13px;
-  color: #2d3748;
+  color: var(--input-text);
   font-family: 'Inter', sans-serif;
   line-height: 1.55;
 }
 textarea.txt-area:focus {
-  outline: 2px solid rgba(18, 53, 91, 0.2);
+  outline: 2px solid var(--divider);
 }
 .btn-copiar {
   background: #0b1f3a;
