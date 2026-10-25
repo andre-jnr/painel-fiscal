@@ -64,6 +64,49 @@
   }
 })()
 
+// Seletor de unidade: troca o servidor dos links de Sistemas internos.
+;(function () {
+  var KEY = 'painel-fiscal-unidade'
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var picker = document.getElementById('unit-picker')
+    if (!picker) return
+    var options = picker.querySelectorAll('.unit-option')
+    var links = picker.parentNode.querySelectorAll('.link-item[data-port]')
+
+    function select(server) {
+      var found = false
+      options.forEach(function (opt) {
+        var on = opt.getAttribute('data-server') === server
+        if (on) found = true
+        opt.setAttribute('aria-checked', on ? 'true' : 'false')
+      })
+      if (!found) return false
+      links.forEach(function (a) {
+        a.href = 'http://' + server + ':' + a.getAttribute('data-port') + '/'
+      })
+      return true
+    }
+
+    var saved = null
+    try {
+      saved = localStorage.getItem(KEY)
+    } catch (e) {}
+    if (saved) select(saved)
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        var server = opt.getAttribute('data-server')
+        if (select(server)) {
+          try {
+            localStorage.setItem(KEY, server)
+          } catch (e) {}
+        }
+      })
+    })
+  })
+})()
+
 function copiar(id, fbId, btn) {
   var el = document.getElementById(id)
   el.select()
