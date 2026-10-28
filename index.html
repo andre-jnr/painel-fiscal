@@ -75,7 +75,16 @@
       </section>
 
       <main class="main-content">
-        <div class="card">
+        <div class="layout-bar">
+          <span class="layout-hint"
+            >Arraste os cards pela alça ⠿ para organizar do seu jeito</span
+          >
+          <button type="button" class="layout-reset" id="layout-reset" hidden>
+            ↺ Restaurar ordem padrão
+          </button>
+        </div>
+        <div class="sr-only" id="layout-status" aria-live="polite"></div>
+        <div class="card" data-card="faturamento">
           <div class="card-header">
             <div class="card-icon">🧾</div>
             <div class="card-title">
@@ -135,7 +144,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="entrada-nota">
           <div class="card-header">
             <div class="card-icon">📄</div>
             <div class="card-title">
@@ -174,7 +183,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="mouraweb">
           <div class="card-header">
             <div class="card-icon">🏙️</div>
             <div class="card-title">
@@ -241,7 +250,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="danfe">
           <div class="card-header">
             <div class="card-icon">🖨️</div>
             <div class="card-title">
@@ -287,7 +296,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="sistemas-internos">
           <div class="card-header">
             <div class="card-icon">🖥️</div>
             <div class="card-title">
@@ -372,7 +381,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="certidoes">
           <div class="card-header">
             <div class="card-icon">📑</div>
             <div class="card-title">
@@ -411,7 +420,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="portais-gestao">
           <div class="card-header">
             <div class="card-icon">🌐</div>
             <div class="card-title">
@@ -478,7 +487,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="links-fiscais">
           <div class="card-header">
             <div class="card-icon">⚖️</div>
             <div class="card-title">
@@ -524,7 +533,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="documentos-cadastro">
           <div class="card-header">
             <div class="card-icon">🗂️</div>
             <div class="card-title">
@@ -570,7 +579,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="frigorifico">
           <div class="card-header">
             <div class="card-icon">🏭</div>
             <div class="card-title">
@@ -616,7 +625,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-card="boletos">
           <div class="card-header">
             <div class="card-icon">💵</div>
             <div class="card-title">
