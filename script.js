@@ -107,6 +107,55 @@
   })
 })()
 
+// Seletor de modelo: troca a porta dos links de Relatórios gerenciais
+// (Modelo André = 3007, Modelo Lincoln = 3005).
+;(function () {
+  var KEY = 'painel-fiscal-modelo'
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var picker = document.getElementById('model-picker')
+    if (!picker) return
+    var options = picker.querySelectorAll('.unit-option')
+    var links = picker.parentNode.querySelectorAll('.link-item[data-host]')
+
+    function select(port) {
+      var found = false
+      options.forEach(function (opt) {
+        var on = opt.getAttribute('data-port') === port
+        if (on) found = true
+        opt.setAttribute('aria-checked', on ? 'true' : 'false')
+      })
+      if (!found) return false
+      links.forEach(function (a) {
+        a.href =
+          'http://' +
+          a.getAttribute('data-host') +
+          ':' +
+          port +
+          a.getAttribute('data-path')
+      })
+      return true
+    }
+
+    var saved = null
+    try {
+      saved = localStorage.getItem(KEY)
+    } catch (e) {}
+    if (saved) select(saved)
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        var port = opt.getAttribute('data-port')
+        if (select(port)) {
+          try {
+            localStorage.setItem(KEY, port)
+          } catch (e) {}
+        }
+      })
+    })
+  })
+})()
+
 // Ordem dos cards: o usuário arrasta pela alça e a ordem fica salva
 // no localStorage deste navegador até mudar de novo ou restaurar o padrão.
 // Roda direto (o script fica no fim do <body>) para aplicar a ordem salva
