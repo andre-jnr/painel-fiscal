@@ -79,9 +79,14 @@
           <span class="layout-hint"
             >Arraste os cards pela alça ⠿ para organizar do seu jeito</span
           >
-          <button type="button" class="layout-reset" id="layout-reset" hidden>
-            ↺ Restaurar ordem padrão
-          </button>
+          <div class="layout-actions">
+            <button type="button" class="layout-reset" id="layout-reset" hidden>
+              ↺ Restaurar ordem padrão
+            </button>
+            <button type="button" class="layout-add" id="section-add">
+              + Nova seção
+            </button>
+          </div>
         </div>
         <div class="sr-only" id="layout-status" aria-live="polite"></div>
         <div class="card" data-card="faturamento">
@@ -899,6 +904,90 @@ where [campo_indice] = [valor_indice];</textarea
         </div>
       </main>
     </div>
+
+    <dialog
+      class="section-dialog"
+      id="section-dialog"
+      aria-labelledby="section-dialog-title"
+    >
+      <form id="section-form" novalidate>
+        <div class="dialog-header">
+          <h2 id="section-dialog-title">Nova seção</h2>
+          <button
+            type="button"
+            class="dialog-close"
+            data-close
+            aria-label="Fechar"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="dialog-body">
+          <div class="field-row">
+            <label class="field field-icon">
+              <span>Ícone</span>
+              <input
+                name="icon"
+                class="icon-input"
+                maxlength="8"
+                placeholder="📁"
+                autocomplete="off"
+              />
+            </label>
+            <label class="field field-grow">
+              <span>Título *</span>
+              <input
+                name="title"
+                maxlength="60"
+                placeholder="Ex.: Fornecedores"
+                autocomplete="off"
+              />
+            </label>
+          </div>
+          <label class="field">
+            <span>Subtítulo</span>
+            <input
+              name="subtitle"
+              maxlength="80"
+              placeholder="Ex.: Portais · Boletos · Pedidos"
+              autocomplete="off"
+            />
+          </label>
+
+          <div class="emoji-box">
+            <div class="field-hint">
+              Clique num ícone para usar no campo de ícone selecionado (ou
+              aperte Windows + . para abrir todos os emojis)
+            </div>
+            <div class="emoji-picker" id="emoji-picker"></div>
+          </div>
+
+          <div class="links-editor">
+            <div class="links-editor-head">
+              <span>Links *</span>
+              <span class="field-hint">Ícone · Nome · Endereço</span>
+            </div>
+            <div id="link-rows"></div>
+            <button type="button" class="btn-ghost" id="link-add">
+              + Adicionar link
+            </button>
+          </div>
+
+          <p class="form-error" id="section-error" role="alert"></p>
+        </div>
+
+        <div class="dialog-footer">
+          <button type="button" class="btn-danger" id="section-delete" hidden>
+            Excluir seção
+          </button>
+          <button type="button" class="btn-secondary" data-close>
+            Cancelar
+          </button>
+          <button type="submit" class="btn-primary">Salvar</button>
+        </div>
+      </form>
+    </dialog>
 
     <script src="script.js"></script>
   </body>
