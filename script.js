@@ -117,6 +117,10 @@
     if (!picker) return
     var options = picker.querySelectorAll('.unit-option')
     var links = picker.parentNode.querySelectorAll('.link-item[data-host]')
+    // Links que só existem num modelo (ex.: Relatório geral, só no André)
+    var onlyLinks = picker.parentNode.querySelectorAll(
+      '.link-item[data-only-model]'
+    )
 
     function select(port) {
       var found = false
@@ -133,6 +137,9 @@
           ':' +
           port +
           a.getAttribute('data-path')
+      })
+      onlyLinks.forEach(function (a) {
+        a.hidden = a.getAttribute('data-only-model') !== port
       })
       return true
     }
