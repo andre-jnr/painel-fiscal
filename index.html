@@ -74,6 +74,184 @@
         </a>
       </section>
 
+      <section class="checklist" id="checklist" aria-labelledby="ck-heading">
+        <div class="ck-header">
+          <div class="card-icon">🗓️</div>
+          <div class="ck-heading">
+            <h2 id="ck-heading">Checklist do fechamento fiscal</h2>
+            <label class="ck-month">
+              <span>Competência</span>
+              <input type="month" id="ck-month" />
+            </label>
+          </div>
+          <div class="ck-progress">
+            <svg class="ck-ring" viewBox="0 0 64 64" aria-hidden="true">
+              <circle class="ck-ring-track" cx="32" cy="32" r="27" />
+              <circle class="ck-ring-fill" cx="32" cy="32" r="27" />
+            </svg>
+            <div class="ck-ring-label">
+              <strong id="ck-count">0/7</strong>
+              <span id="ck-percent">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ck-complete" id="ck-complete" hidden>
+          <span class="ck-complete-icon" aria-hidden="true">🏆</span>
+          <div>
+            <strong
+              >Fechamento de <span id="ck-complete-month"></span> concluído!</strong
+            >
+            <span>Todas as etapas foram conferidas. Excelente trabalho.</span>
+          </div>
+        </div>
+
+        <ol class="ck-list">
+            <li class="ck-item" data-item="transf-entradas">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-1"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Transferências (entradas)</span>
+                  <span class="ck-desc" id="ck-desc-1">Confira se já temos entrada em todas as transferências.</span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">01</span>
+              </button>
+            </li>
+            <li class="ck-item" data-item="transf-saidas">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-2"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Transferências (saídas)</span>
+                  <span class="ck-desc" id="ck-desc-2">Confira se todas as transferências já foram emitidas.</span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">02</span>
+              </button>
+            </li>
+            <li class="ck-item" data-item="fechamento-nf">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-3"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Relatório de fechamento de NF</span>
+                  <span class="ck-desc" id="ck-desc-3">Confira se tudo o que foi emitido para nós foi lançado. O que não foi: verifique e solicite a rejeição das notas.</span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">03</span>
+              </button>
+            </li>
+            <li class="ck-item" data-item="fechamento-nfs">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-4"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Relatório de fechamento de NFS</span>
+                  <span class="ck-desc" id="ck-desc-4">Mesma conferência do relatório de NF: lançado, não lançado e rejeição.</span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">04</span>
+              </button>
+            </li>
+            <li class="ck-item" data-item="movimentacoes">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-5"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Lançamento de movimentações internas</span>
+                  <span class="ck-desc" id="ck-desc-5">Saída de estoque, compras dos setores e fechamento de cada setor.</span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">05</span>
+              </button>
+            </li>
+            <li class="ck-item" data-item="avarias">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-6"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Notas de avarias e descartes</span>
+                  <span class="ck-desc" id="ck-desc-6">Notas para o CD e de vencimentos que não tiveram troca.</span>
+                <span class="ck-chips"><span class="ck-chip">CFOP 5.927</span></span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">06</span>
+              </button>
+            </li>
+            <li class="ck-item" data-item="desagregacao">
+              <button
+                type="button"
+                class="ck-toggle"
+                role="checkbox"
+                aria-checked="false"
+                aria-describedby="ck-desc-7"
+              >
+                <span class="ck-box" aria-hidden="true"
+                  ><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg
+                ></span>
+                <span class="ck-body">
+                  <span class="ck-title">Notas de desagregação</span>
+                  <span class="ck-desc" id="ck-desc-7">Produtos transformados: saída da matéria-prima e entrada do produto acabado.</span>
+                <span class="ck-chips"><span class="ck-chip">CFOP 5.926</span><span class="ck-chip">CFOP 1.926</span></span>
+                  <span class="ck-done-at"></span>
+                </span>
+                <span class="ck-num" aria-hidden="true">07</span>
+              </button>
+            </li>
+        </ol>
+
+        <div class="ck-footer">
+          <span class="ck-status" id="ck-status" aria-live="polite"></span>
+          <button type="button" class="ck-reset" id="ck-reset" hidden>
+            ↺ Reiniciar checklist
+          </button>
+        </div>
+      </section>
+
       <main class="main-content">
         <div class="layout-bar">
           <span class="layout-hint"
