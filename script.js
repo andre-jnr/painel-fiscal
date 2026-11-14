@@ -871,6 +871,59 @@
     window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+  // Minimizar: o checklist recolhe e fica só o indicador no cabeçalho.
+  var MIN_KEY = 'painel-fiscal-checklist-min'
+  var MINI_CIRC = 2 * Math.PI * 16
+  var html = document.documentElement
+  var wrap = document.getElementById('ck-wrap')
+  var mini = document.getElementById('ck-mini')
+  var miniFill = mini.querySelector('.ck-mini-fill')
+  var miniCount = document.getElementById('ck-mini-count')
+  var minimizeBtn = document.getElementById('ck-minimize')
+
+  function syncMinimized() {
+    var min = html.classList.contains('ck-min')
+    // Fora do Tab e do leitor de tela o que está escondido.
+    wrap.inert = min
+    mini.tabIndex = min ? 0 : -1
+    mini.setAttribute('aria-hidden', min ? 'false' : 'true')
+    mini.setAttribute('aria-expanded', min ? 'false' : 'true')
+    minimizeBtn.setAttribute('aria-expanded', min ? 'false' : 'true')
+  }
+  function setMinimized(min) {
+    if (html.classList.contains('ck-min') === min) return
+    // overflow escondido só durante a animação, para não cortar a sombra.
+    wrap.classList.add('is-animating')
+    clearTimeout(wrap._t)
+    wrap._t = setTimeout(function () {
+      wrap.classList.remove('is-animating')
+    }, 550)
+    html.classList.toggle('ck-min', min)
+    try {
+      if (min) localStorage.setItem(MIN_KEY, '1')
+      else localStorage.removeItem(MIN_KEY)
+    } catch (e) {}
+    syncMinimized()
+    if (min) {
+      mini.classList.remove('is-arriving')
+      void mini.offsetWidth
+      mini.classList.add('is-arriving')
+      setTimeout(function () {
+        mini.classList.remove('is-arriving')
+      }, 1300)
+      mini.focus({ preventScroll: true })
+    } else {
+      minimizeBtn.focus({ preventScroll: true })
+    }
+  }
+  minimizeBtn.addEventListener('click', function () {
+    setMinimized(true)
+  })
+  mini.addEventListener('click', function () {
+    setMinimized(false)
+  })
+  syncMinimized()
+
   function loadAll() {
     try {
       var v = JSON.parse(localStorage.getItem(KEY))
@@ -945,6 +998,17 @@
       : done === 0
         ? 'Nenhuma etapa concluída em ' + monthName(month) + '.'
         : 'Faltam ' + (total - done) + (total - done === 1 ? ' etapa' : ' etapas') + ' para fechar ' + monthName(month) + '.'
+    // Indicador compacto no cabeçalho (checklist minimizado)
+    miniFill.style.strokeDashoffset = MINI_CIRC * (1 - done / total)
+    miniCount.textContent = complete ? '✓' : done + '/' + total
+    mini.classList.toggle('is-complete', complete)
+    var miniLabel =
+      'Abrir checklist do fechamento: ' +
+      (complete
+        ? 'tudo concluído'
+        : done + ' de ' + total + ' etapas, faltam ' + (total - done))
+    mini.setAttribute('aria-label', miniLabel)
+    mini.title = miniLabel
     if (opts && opts.bump) {
       ringLabel.classList.remove('is-bump')
       void ringLabel.offsetWidth
