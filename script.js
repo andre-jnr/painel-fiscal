@@ -899,9 +899,12 @@
       wrap.classList.remove('is-animating')
     }, 550)
     html.classList.toggle('ck-min', min)
+    // Guarda a escolha junto com o mês atual: no mês seguinte o checklist
+    // reabre sozinho (ver script no <head> do index.html).
+    var d = new Date()
+    var mes = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2)
     try {
-      if (min) localStorage.setItem(MIN_KEY, '1')
-      else localStorage.removeItem(MIN_KEY)
+      localStorage.setItem(MIN_KEY, JSON.stringify({ mes: mes, min: min }))
     } catch (e) {}
     syncMinimized()
     if (min) {

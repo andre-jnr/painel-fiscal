@@ -10,15 +10,30 @@
       // Aplica o tema salvo antes da renderização para evitar "flash".
       // Sem valor salvo, o CSS segue a preferência do sistema/navegador.
       ;(function () {
+        var root = document.documentElement
+        // Checklist: por padrão fica minimizado no cabeçalho.
+        root.classList.add('ck-min')
         try {
           var t = localStorage.getItem('painel-fiscal-theme')
           if (t === 'dark' || t === 'light') {
-            document.documentElement.setAttribute('data-theme', t)
+            root.setAttribute('data-theme', t)
           }
-          // Checklist minimizado: já abre recolhido, sem animação.
-          if (localStorage.getItem('painel-fiscal-checklist-min') === '1') {
-            document.documentElement.classList.add('ck-min')
+          // Na primeira visita de cada mês o checklist reabre maximizado;
+          // dentro do mesmo mês vale a última escolha do usuário.
+          var KEY = 'painel-fiscal-checklist-min'
+          var d = new Date()
+          var mes = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2)
+          var s = null
+          try {
+            s = JSON.parse(localStorage.getItem(KEY))
+          } catch (e) {}
+          if (!s || typeof s !== 'object') {
+            s = { mes: mes, min: true } // primeira vez: minimizado
+          } else if (s.mes !== mes) {
+            s = { mes: mes, min: false } // mês novo: reabre
           }
+          localStorage.setItem(KEY, JSON.stringify(s))
+          if (!s.min) root.classList.remove('ck-min')
         } catch (e) {}
       })()
     </script>
