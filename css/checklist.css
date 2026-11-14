@@ -1,0 +1,715 @@
+/* ==========================================================
+   Checklist do fechamento fiscal
+   ========================================================== */
+.checklist {
+  max-width: 1160px;
+  margin: 24px auto 0;
+  padding: 22px 22px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+@media (max-width: 1200px) {
+  .checklist {
+    margin: 24px 20px 0;
+  }
+}
+.checklist.is-complete {
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.25),
+    0 10px 30px rgba(212, 175, 55, 0.12);
+}
+
+.ck-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--divider);
+}
+.ck-heading {
+  flex: 1;
+  min-width: 0;
+}
+.ck-heading h2 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+.ck-month {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #d4af37;
+  letter-spacing: 0.3px;
+}
+.ck-month input {
+  padding: 4px 8px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 7px;
+  color: var(--input-text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+.ck-month input:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 1px;
+}
+
+/* Anel de progresso */
+.ck-progress {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+.ck-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.ck-ring circle {
+  fill: none;
+  stroke-width: 6;
+}
+.ck-ring-track {
+  stroke: var(--icon-bg);
+}
+.ck-ring-fill {
+  stroke: var(--success);
+  stroke-linecap: round;
+  stroke-dasharray: 169.65;
+  stroke-dashoffset: 169.65;
+  transition:
+    stroke-dashoffset 0.7s cubic-bezier(0.23, 1, 0.32, 1),
+    stroke 0.4s ease;
+}
+.checklist.is-complete .ck-ring-fill {
+  stroke: #d4af37;
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.6));
+}
+.ck-ring-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+.ck-ring-label strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--heading);
+}
+.ck-ring-label span {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.6;
+}
+.ck-ring-label.is-bump {
+  animation: ck-bump 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes ck-bump {
+  40% {
+    transform: scale(1.18);
+  }
+}
+
+/* Banner de conclusão */
+.ck-complete {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(135deg, #0b1f3a 0%, #12355b 55%, #1a4a7a 100%);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+.ck-complete[hidden] {
+  display: none;
+}
+.ck-complete::after {
+  /* brilho que atravessa o banner */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(241, 210, 122, 0.35) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.ck-complete.is-entering {
+  animation: ck-banner-in 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ck-complete.is-entering::after {
+  animation: ck-shine 1.4s 0.35s ease-out;
+}
+.ck-complete strong {
+  display: block;
+  font-size: 15px;
+  color: #f1d27a;
+}
+.ck-complete div > span {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.75);
+}
+.ck-complete-icon {
+  font-size: 30px;
+  flex-shrink: 0;
+}
+.ck-complete.is-entering .ck-complete-icon {
+  animation: ck-trophy 0.9s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes ck-banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+@keyframes ck-shine {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes ck-trophy {
+  0% {
+    transform: scale(0.4) rotate(-20deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2) rotate(8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* Lista de etapas */
+.ck-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+.ck-toggle {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--link-bg);
+  border: 1px solid var(--link-border);
+  border-radius: 12px;
+  color: var(--link-text);
+  font-family: 'Inter', sans-serif;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.12s ease-out;
+}
+.ck-toggle:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+}
+.ck-toggle:active {
+  transform: scale(0.985);
+}
+.ck-toggle:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+.ck-toggle[aria-checked='true'] {
+  background: var(--success-soft);
+  border-color: color-mix(in srgb, var(--success) 35%, transparent);
+}
+
+/* Caixa redonda com o ✓ desenhado */
+.ck-box {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 2px solid var(--input-border);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+.ck-toggle:hover .ck-box {
+  border-color: rgba(212, 175, 55, 0.7);
+}
+.ck-box svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 22;
+  stroke-dashoffset: 22;
+  transition: stroke-dashoffset 0.18s ease-in;
+}
+.ck-toggle[aria-checked='true'] .ck-box {
+  background: var(--success);
+  border-color: var(--success);
+}
+.ck-toggle[aria-checked='true'] .ck-box svg {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.32s 0.08s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.ck-item.is-popping .ck-box {
+  animation: ck-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes ck-pop {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* Onda que se expande ao marcar */
+.ck-item.is-popping .ck-box::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--success);
+  animation: ck-ripple 0.6s ease-out forwards;
+}
+@keyframes ck-ripple {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(2.3);
+    opacity: 0;
+  }
+}
+/* Faíscas */
+.ck-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: ck-spark 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+@keyframes ck-spark {
+  from {
+    transform: rotate(var(--a)) translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(var(--a)) translateY(-26px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+.ck-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.ck-title {
+  position: relative;
+  align-self: flex-start;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--heading);
+  transition: opacity 0.3s ease;
+}
+/* Risco que corre da esquerda para a direita ao concluir */
+.ck-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s 0.1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.ck-toggle[aria-checked='true'] .ck-title {
+  opacity: 0.6;
+}
+.ck-toggle[aria-checked='true'] .ck-title::after {
+  transform: scaleX(1);
+}
+.ck-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.85;
+}
+.ck-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 3px;
+}
+.ck-chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--icon-bg);
+  color: var(--heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.ck-done-at {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--success);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease;
+}
+.ck-toggle[aria-checked='true'] .ck-done-at {
+  max-height: 20px;
+  opacity: 1;
+}
+.ck-num {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d4af37;
+  opacity: 0.55;
+  font-variant-numeric: tabular-nums;
+}
+
+.ck-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  min-height: 30px;
+}
+.ck-status {
+  font-size: 12.5px;
+  color: var(--text);
+  opacity: 0.7;
+}
+.ck-reset {
+  margin-left: auto;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  color: var(--heading);
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    border-color 0.18s;
+}
+.ck-reset:hover {
+  background: var(--icon-bg);
+}
+.ck-reset.is-armed {
+  background: #c0392b;
+  border-color: #c0392b;
+  color: #fff;
+}
+.ck-reset[hidden] {
+  display: none;
+}
+.ck-reset:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+
+/* Confete (tela inteira, só na conclusão) */
+.ck-confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200;
+}
+
+@media (max-width: 640px) {
+  .checklist {
+    margin: 14px 12px 0;
+    padding: 16px 14px 12px;
+  }
+  .ck-list {
+    grid-template-columns: 1fr;
+  }
+  .ck-progress {
+    width: 56px;
+    height: 56px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ck-item.is-popping .ck-box,
+  .ck-item.is-popping .ck-box::after,
+  .ck-complete.is-entering,
+  .ck-complete.is-entering::after,
+  .ck-complete.is-entering .ck-complete-icon,
+  .ck-ring-label.is-bump {
+    animation: none;
+  }
+  .ck-spark {
+    display: none;
+  }
+  .ck-title::after,
+  .ck-ring-fill,
+  .ck-box svg {
+    transition-duration: 0.01s !important;
+  }
+}
+
+/* ---------- Checklist minimizado ---------- */
+
+/* Recolhe a altura com grid 0fr/1fr (anima sem medir em JS) */
+.ck-wrap {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.ck-wrap-inner {
+  min-height: 0;
+}
+.ck-wrap.is-animating > .ck-wrap-inner,
+html.ck-min .ck-wrap > .ck-wrap-inner {
+  overflow: hidden;
+}
+/* O card encolhe em direção ao canto superior direito, onde fica o
+   indicador do cabeçalho, e volta pelo mesmo caminho. */
+.ck-wrap .checklist {
+  transform-origin: 100% 0;
+  transition:
+    transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.35s ease,
+    filter 0.35s ease,
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+html.ck-min .ck-wrap {
+  grid-template-rows: 0fr;
+}
+html.ck-min .ck-wrap .checklist {
+  transform: translateY(-12px) scale(0.94);
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* Botão de minimizar no checklist */
+.ck-minimize {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  border-radius: 9px;
+  color: var(--heading);
+  cursor: pointer;
+  transition:
+    background 0.18s,
+    border-color 0.18s,
+    transform 0.12s ease-out;
+}
+.ck-minimize svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s ease;
+}
+.ck-minimize:hover {
+  background: var(--icon-bg);
+  border-color: rgba(212, 175, 55, 0.45);
+}
+.ck-minimize:hover svg {
+  transform: translateY(-2px);
+}
+.ck-minimize:active {
+  transform: scale(0.94);
+}
+.ck-minimize:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+
+/* Indicador no cabeçalho: só aparece com o checklist minimizado */
+.ck-mini {
+  margin-left: auto;
+  position: relative;
+  width: 0;
+  height: 42px;
+  flex-shrink: 0;
+  padding: 0;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.6);
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    width 0.45s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.25s ease,
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.2s,
+    visibility 0s 0.45s;
+}
+.ck-mini + .theme-toggle {
+  margin-left: 10px;
+}
+html.ck-min .ck-mini {
+  width: 42px;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition:
+    width 0.45s cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 0.3s 0.12s ease,
+    transform 0.5s 0.12s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.2s,
+    visibility 0s;
+}
+.ck-mini:hover {
+  background: rgba(212, 175, 55, 0.28);
+}
+.ck-mini:active {
+  transform: scale(0.94);
+}
+.ck-mini:focus-visible {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+.ck-mini-ring {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 34px;
+  height: 34px;
+  transform: rotate(-90deg);
+}
+.ck-mini-ring circle {
+  fill: none;
+  stroke-width: 3.5;
+}
+.ck-mini-track {
+  stroke: rgba(255, 255, 255, 0.16);
+}
+.ck-mini-fill {
+  stroke: #34c77b;
+  stroke-linecap: round;
+  stroke-dasharray: 100.53;
+  stroke-dashoffset: 100.53;
+  transition:
+    stroke-dashoffset 0.7s 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    stroke 0.4s ease;
+}
+.ck-mini.is-complete .ck-mini-fill {
+  stroke: #d4af37;
+}
+.ck-mini.is-complete {
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+}
+.ck-mini-count {
+  position: relative;
+  font-family: 'Inter', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+/* Ao recolher, o indicador pulsa uma vez para mostrar onde o checklist foi */
+.ck-mini.is-arriving {
+  animation: ck-mini-arrive 0.9s 0.35s ease-out;
+}
+@keyframes ck-mini-arrive {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(212, 175, 55, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ck-wrap,
+  .ck-mini {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
+  }
+  .ck-wrap .checklist {
+    transition: opacity 0.2s ease;
+  }
+  html.ck-min .ck-wrap .checklist {
+    transform: none;
+    filter: none;
+  }
+  .ck-mini.is-arriving {
+    animation: none;
+  }
+}

@@ -4,8 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Central de Portais Fiscais</title>
-    <link rel="shortcut icon" href="contabilidade.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="assets/contabilidade.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/seletores.css" />
+    <link rel="stylesheet" href="css/ordem.css" />
+    <link rel="stylesheet" href="css/secoes.css" />
+    <link rel="stylesheet" href="css/checklist.css" />
     <script>
       // Aplica o tema salvo antes da renderização para evitar "flash".
       // Sem valor salvo, o CSS segue a preferência do sistema/navegador.
@@ -1226,6 +1234,13 @@ where [campo_indice] = [valor_indice];</textarea
       </form>
     </dialog>
 
-    <script src="script.js"></script>
+    <!-- A ordem importa: secoes.js antes de ordem.js (as seções criadas
+         pelo usuário entram na ordem dos cards). -->
+    <script src="js/tema.js"></script>
+    <script src="js/seletores.js"></script>
+    <script src="js/secoes.js"></script>
+    <script src="js/ordem.js"></script>
+    <script src="js/checklist.js"></script>
+    <script src="js/copiar.js"></script>
   </body>
 </html>
